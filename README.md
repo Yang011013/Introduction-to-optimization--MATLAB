@@ -371,7 +371,4 @@ title('Contour Plot of f(x,y)=x^4+2y^4')
 colorbar
 ```
 
-<img src="C:\Users\keyang\AppData\Roaming\Typora\typora-user-images\image-20230531003934765.png" alt="image-20230531003934765" style="zoom:80%;" />
-
-
-
+<img src="可视化结果图片\Q1.png" alt="Q1" style="zoom:80%;" />
