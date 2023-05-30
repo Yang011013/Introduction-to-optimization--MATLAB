@@ -354,7 +354,7 @@ disp(['函数最小值：',num2str(f(next_point(1),next_point(2)))]);
 
 ### Q1
 
-绘制$f(x,y)=x^4+2*y^4在x\in [-4,4],y\in [-4,4]$上的等高线
+绘制$ f(x,y)=x^4+2*y^4在x\in [-4,4],y\in [-4,4] $上的等高线
 
 ```matlab
 % 绘制$f(x,y)=x^4+2*y^4在x\in [-4,4],y\in [-4,4]$上的等高线
@@ -371,4 +371,4 @@ title('Contour Plot of f(x,y)=x^4+2y^4')
 colorbar
 ```
 
-<img src="可视化结果图片\Q1.png" alt="Q1" style="zoom:20%;" />
+<img src="可视化结果图片\Q1.png" alt="Q1" style="zoom:20%;" width="50%"/>
