@@ -1,6 +1,6 @@
 [TOC]
 
-##  homework1 / 作业一
+##  作业一 线性代数基础
 
 ### Q1
 
@@ -130,7 +130,7 @@ function f9(a,b,c)
 end
 ```
 
-## homework2 / 作业二
+## 作业二 无约束优化问题
 
 ### Q1
 
@@ -349,3 +349,12 @@ disp(['迭代完成']);
 disp(['最小值对应的点：（',num2str(next_point(1)),',',num2str(next_point(2)),')']);
 disp(['函数最小值：',num2str(f(next_point(1),next_point(2)))]);
 ```
+
+
+
+
+
+
+
+
+
