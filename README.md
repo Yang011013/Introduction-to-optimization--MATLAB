@@ -371,4 +371,4 @@ title('Contour Plot of f(x,y)=x^4+2y^4')
 colorbar
 ```
 
-<img src="可视化结果图片\Q1.png" alt="Q1" style="zoom:50%;" />
+<img src="可视化结果图片\Q1.png" alt="Q1" style="zoom:20%;" />
