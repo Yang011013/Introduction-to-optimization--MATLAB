@@ -132,7 +132,7 @@ end
 
 ## 作业二 无约束优化问题
 
-### Q1
+### Q1 - 二分法
 
 利用二分法，求解函数$f(x) = x*sinx - x/6$在$[0,1]$上的最小值，要求精度小于0. 1，给出每一步的详细计算结果；
 
@@ -156,7 +156,7 @@ while abs(b-a) > 0.1
 end
 ```
 
-### Q2
+### Q2-Newton法
 
 利用Newton法，求解函数$f(x) = x*sinx - x/6$在$[0,1]$上的最小值，要求精度小于0. 1，给出每一步的详细计算结果；
 
@@ -188,7 +188,7 @@ disp(['第',num2str(iter),'次迭代,当前区间中点值',num2str(x),',当前�
 disp(['         当前区间为','[',num2str(a),',',num2str(b),']','，区间长度为',num2str(b-a)])
 ```
 
-### Q3
+### Q3-黄金分割法
 
 利用黄金分割法，求解函数$f(x) = x*sinx - x/6$在$[0,1]$上的最小值，要求精度小于0. 1，给出每一步的详细计算结果；
 
@@ -217,7 +217,7 @@ while abs(b-a) > 0.1
 end
 ```
 
-### Q4
+### Q4-斐波那契数列法
 
 利用斐波那契数列法，求解函数$f(x) = x*sinx - x/6$在$[0,1]$上的最小值，要求精度小于0. 1，给出每一步的详细计算结果；
 
@@ -263,7 +263,7 @@ disp(['         当前区间为','[',num2str(a),',',num2str(b),']','，区间长
 
 以上都是一元的函数。下面是多元的无约束优化问题。
 
-### Q5
+### Q5-最速下降法
 
 利用最速下降法，求解二元函数$f(x,y) = x^4+2*y^4在x\in [-4,4],y\in [-4,4]$上的最小值，起始点为$x=4,y=4$，要求精度小于0.1，给出每一步的计算结果。
 
@@ -306,7 +306,7 @@ disp(['最小值对应的点：（',num2str(next_point(1)),',',num2str(next_poin
 disp(['函数最小值：',num2str(f(next_point(1),next_point(2)))]);
 ```
 
-### Q6
+### Q6-Newton法
 
 利用Newton法，求解二元函数$f(x,y) = x^4+2*y^4在x\in [-4,4],y\in [-4,4]$上的最小值，起始点为$x=4,y=4$，要求精度小于0.1，给出每一步的计算结果。
 
@@ -350,9 +350,73 @@ disp(['最小值对应的点：（',num2str(next_point(1)),',',num2str(next_poin
 disp(['函数最小值：',num2str(f(next_point(1),next_point(2)))]);
 ```
 
+### Q7-共轭方向法-给定共轭方向
+
+给定共轭方向 $\vec d^{(0)}=[1, 0]^T,\vec d^{(1)}=[-3/8, 3/4]^T$, 初始点$\vec x^{(0)}=[0, 0]^T$, 求 $f(\vec x) = 1/2\vec x^T \begin{bmatrix}
+4 & 2\\
+2 & 2
+\end{bmatrix} \vec x-[-1, 1]\vec x, \ \vec x \in \mathbb R^n$ 的极小值点。
+
+```matlab
+% 共轭梯度法
+% 定义函数
+A = [4 2; 2 2];
+b = [-1; 1];
+f = @(x) 0.5 * x' * A * x - b' * x;
+grad_f = @(x) A * x - b;
+
+% 定义共轭方向和初始点
+d0 = [1; 0];
+d1 = [-3/8; 3/4];
+x0 = [0; 0];
+
+% 计算步长 1
+alpha = -(d0'*grad_f(x0)) / (d0'*A*d0);
+x1 = x0 + alpha * d0;
+disp(['当前x:(',num2str(x1(1)),',',num2str(x1(2)),')']);
+disp(['函数值:', num2str(f(x1))]);
+
+% 计算步长 2
+alpha = -(d1'*grad_f(x1)) / (d1'*A*d1);
+x2 = x1 + alpha * d1;
+disp(['当前x:(',num2str(x2(1)),',',num2str(x2(2)),')']);
+disp(['函数值:', num2str(f(x2))]);
+   
+```
+
+### Q8-共轭方向法
+
+利用共轭梯度发求解$f(x_1,x_2,x_3)=3/2x_1^2+2x_2^2+3/2x_3^2+x_1x_3+2x_2x_3-3x_1-x_3$，初始点为$\vec x^{(0)}=[0, 0, 0]^T$
+
+```matlab
+% 共轭梯度法
+% 定义函数
+A = [3 0 1; 0 4 2; 1 2 3];
+b = [3; 0; 1];
+f = @(x) 0.5 * x' * A * x - b' * x;
+grad_f = @(x) A * x - b;
+
+x0 = [0; 0; 0];
+d = -grad_f(x0);
+alpha0 = -(d'*grad_f(x0)) / (d'*A*d);
+x = x0 + alpha0 * d;
+disp(['当前x:(',num2str(x(1)),',',num2str(x(2)),',',num2str(x(3)),')']);
+disp(['函数值:', num2str(f(x))]);
+while norm(grad_f(x)) > 0.01
+    beta = (d'*A*grad_f(x)) / (d'*A*d);
+    d = -grad_f(x) + beta*d;
+    alpha = -(d'*grad_f(x)) / (d'*A*d);
+    x = x + alpha*d;
+    disp(['当前x:(',num2str(x(1)),',',num2str(x(2)),',',num2str(x(3)),')']);
+    disp(['函数值:', num2str(f(x))]);
+end
+```
+
+
+
 ## 作业三-可视化无约束优化算法
 
-### Q1
+### Q1-等高线
 
 绘制$f(x,y)=x^4+2*y^4在x\in [-4,4],y\in [-4,4]$上的等高线
 
@@ -371,4 +435,82 @@ title('Contour Plot of f(x,y)=x^4+2y^4')
 colorbar
 ```
 
-<img src="可视化结果图片\Q1.png" alt="Q1" style="zoom:80%;" />
+<img src="可视化结果图片\Q1.png" alt="Q1" style="zoom:80%;" width="50%"/>
+
+Q2-三维图
+
+绘制$f(x,y)=x^4+2*y^4在x\in [-4,4],y\in [-4,4]$上的三维图
+
+```matlab
+% 绘制$f(x,y)=x^4+2*y^4在x\in [-4,4],y\in [-4,4]$上的三维图
+f = @(x,y) x.^4 + 2*y.^4;
+% 生成网格数据
+[X,Y] = meshgrid(-4:0.1:4);
+Z = f(X,Y)
+% 绘制三维图
+figure
+surf(X,Y,Z);
+xlabel('x');
+ylabel('y');
+title('3D Plot of f(x,y)=x^4+2y^4')
+```
+
+<img src="可视化结果图片\Q2.png" alt="Q1" style="zoom:80%;" width="50%"/>
+
+### Q3-最速下降法可视化-等高线
+
+利用最速下降法，求解$f(x,y)=x^4+2*y^4在x\in [-4,4],y\in [-4,4]$上的最小值，起始点为$x=4,y=4$，要求精度小于0.1，给出每步的计算结果，各个步骤的计算结果在等高线中可视化。
+
+```matlab
+% 定义函数和梯度
+f = @(x,y) x.^4 + 2*y.^4;
+grad_f = @(x,y) [4*x^3; 8*y^3];
+
+% 初始化
+current_point = [4; 4];
+precision = 0.1;
+
+% 生成网格数据
+[X,Y] = meshgrid(-4:0.1:4);
+Z = f(X,Y)
+
+% 绘制等高线图
+figure
+contour(X,Y,Z,'ShowText','on');
+xlabel('x');
+ylabel('y');
+title('Contour Plot of f(x,y)=x^4+2y^4')
+colorbar
+hold on
+
+% 迭代更新
+while true
+    gradient = grad_f(current_point(1),current_point(2));
+    % 绘制迭代点
+    plot(current_point(1),current_point(2),'bo','MarkerSize',4,'LineWidth',1);
+    text(current_point(1)-0.2,current_point(2)-0.1,['(',num2str(current_point(1)),',',num2str(current_point(2)),')']);
+    text(current_point(1)-0.2,current_point(2)-0.3,['f=',num2str(f(current_point(1),current_point(2)))]);
+    
+    % 精确搜索, 找出[-100,100]范围内的alpha取值
+    alpha = fminbnd(@(alpha)f(current_point(1)-alpha*gradient(1),current_point(2)-alpha*gradient(2)),-100,100);
+    next_point = current_point - alpha * gradient;
+    
+    % 绘制迭代箭头
+    arrow_vec = next_point - current_point;
+    quiver(current_point(1),current_point(2),arrow_vec(1),arrow_vec(2),'Color','green','LineWidth',1);
+    
+    if norm(next_point - current_point) < precision
+        break
+    end
+    current_point = next_point;    
+end
+% 绘制最小点
+plot(current_point(1),current_point(2),'ro','MarkerSize',4,'LineWidth',2);
+text(current_point(1),current_point(2)+0.2,['(',num2str(current_point(1)),',',num2str(current_point(2)),')']);
+text(current_point(1),current_point(2)+0.4,['f=',num2str(f(current_point(1),current_point(2)))]);
+disp('Optimization complete.');
+disp(['Minimum point:(', num2str(current_point(1)),',',num2str(current_point(2)),')'])
+disp(['Minimum value:',num2str(f(current_point(1),current_point(2)))]);
+```
+
+<img src="可视化结果图片\Q3.png" alt="Q1" style="zoom:80%;" width="50%"/>
