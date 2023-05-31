@@ -418,7 +418,7 @@ end
 
 ### Q1-等高线
 
-绘制$f(x,y)=x^4+2*y^4在x\in [-4,4],y\in [-4,4]$上的等高线
+绘制$ f(x,y)=x^4+2*y^4在x\in [-4,4],y\in [-4,4] $上的等高线
 
 ```matlab
 % 绘制$f(x,y)=x^4+2*y^4在x\in [-4,4],y\in [-4,4]$上的等高线
@@ -436,6 +436,8 @@ colorbar
 ```
 
 <img src="可视化结果图片\Q1.png" alt="Q1" style="zoom:80%;" width="50%"/>
+
+
 
 Q2-三维图
 
@@ -455,7 +457,7 @@ ylabel('y');
 title('3D Plot of f(x,y)=x^4+2y^4')
 ```
 
-<img src="可视化结果图片\Q2.png" alt="Q1" style="zoom:80%;" width="50%"/>
+<img src="可视化结果图片\Q2.png" alt="Q2" style="zoom:80%;" width="50%"/>
 
 ### Q3-最速下降法可视化-等高线
 
@@ -513,4 +515,5 @@ disp(['Minimum point:(', num2str(current_point(1)),',',num2str(current_point(2))
 disp(['Minimum value:',num2str(f(current_point(1),current_point(2)))]);
 ```
 
-<img src="可视化结果图片\Q3.png" alt="Q1" style="zoom:80%;" width="50%"/>
+<img src="可视化结果图片\Q3.png" style="zoom:80%;" width="50%" >
+
